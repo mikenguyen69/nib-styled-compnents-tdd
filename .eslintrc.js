@@ -8,6 +8,7 @@ module.exports = {
             jsx: true,
         }
     },
+    parser: 'babel-eslint',
     env: {
         node: true,
     },
