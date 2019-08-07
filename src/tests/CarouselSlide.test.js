@@ -65,4 +65,9 @@ describe('Img', () => {
     it('renders an <img> with the given src', () => {
         expect(mounted.containsMatchingElement(<img src={imgUrl} />)).toBe(true);
     });
+
+    it('has the expected static styles', () => {
+        expect(mounted).toHaveStyleRule('width', '100%');
+        expect(mounted).toHaveStyleRule('object-fit','cover');
+    });
 });
