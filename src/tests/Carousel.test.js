@@ -103,13 +103,30 @@ describe('Carousel', () => {
     });
 
     describe('with the last slide selected', () => {
-    it('wraps `slideIndex` to the min value when Next is clicked', () => {
-        wrapper.setState({ slideIndex: slides.length - 1 });
-        wrapper.find('[data-action="next"]').simulate('click');
-        expect(wrapper.state('slideIndex')).toBe(0);
-    });
+        it('wraps `slideIndex` to the min value when Next is clicked', () => {
+            wrapper.setState({ slideIndex: slides.length - 1 });
+            wrapper.find('[data-action="next"]').simulate('click');
+            expect(wrapper.state('slideIndex')).toBe(0);
+        });
     });
 
+    it('passes defaultImg and defaultImgHeight to the CarouselSlide', () => {
+        const defaultImg = () => 'test';
+        const defaultImgHeight = 1234;
+        wrapper.setProps({defaultImg, defaultImgHeight});
+
+        expect(wrapper.find(CarouselSlide).prop('Img')).toBe(defaultImg);
+        expect(wrapper.find(CarouselSlide).prop('imgHeight')).toBe(defaultImgHeight);
+    });
+
+    it('allows individual slides to override Img and imgHeight', () => {
+        const Img = () => 'test';
+        const imgHeight = 1234;
+        wrapper.setProps({slides: [{...slides[0], Img, imgHeight}]});
+
+        expect(wrapper.find(CarouselSlide).prop('Img')).toBe(Img);
+        expect(wrapper.find(CarouselSlide).prop('imgHeight')).toBe(imgHeight);
+    });
     
 });
 
